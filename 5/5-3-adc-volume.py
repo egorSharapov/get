@@ -6,7 +6,7 @@ gpio.setmode(gpio.BCM)
 dac    = [26, 19, 13, 6, 5, 11, 9, 10]
 leds   = [21, 20, 16, 12, 7, 8, 25, 24]
 comp   = 4
-troyka = 17
+tryka = 17
 
 gpio.setup(dac, gpio.OUT)
 gpio.setup(leds, gpio.OUT)

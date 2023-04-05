@@ -7,7 +7,7 @@ comp=4
 troyka=17
 gpio.setup (dac, gpio.OUT)
 gpio.setup (troyka,gpio.OUT, initial=gpio.HIGH)
-gpio.setup (comp, gpio.IN)
+gpio.setup (cop, gpio.IN)
 
 def perev (a):
     return [int (elem) for elem in bin(a)[2:].zfill(8)]
