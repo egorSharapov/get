@@ -1,0 +1,40 @@
+from matplotlib import pyplot
+import numpy
+import matplotlib.ticker as ticker
+
+with open('settings.txt') as file:
+    settings=[float(i) for i in file.read().split('\n')]
+
+
+data = numpy.loadtxt('data.txt', dtype=int) * settings[1]
+data_time = numpy.array([i*settings[0] for i in range(data.size)])
+fig, ax = pyplot.subplots(figsize=(16, 10), dpi=500)
+
+ax.axis([data.min(), round (data_time.max()) + 2, data.min(), round (data.max())])
+
+
+ax.xaxis.set_major_locator(ticker.MultipleLocator(2))
+ax.xaxis.set_minor_locator(ticker.MultipleLocator(0.5))
+
+ax.yaxis.set_major_locator(ticker.MultipleLocator(0.5))
+ax.yaxis.set_minor_locator(ticker.MultipleLocator(0.1))
+
+ax.set_title('Процесс заряда и разряда конденсатора в RC-цепи', loc = 'center', fontsize=25)
+
+
+ax.grid(which='major', color = 'k')
+ax.minorticks_on()
+ax.grid(which='minor', color = 'gray', linestyle = ':')
+
+
+ax.set_ylabel("Напряжение, В", fontsize=20)
+ax.set_xlabel("Время, с", fontsize=20)
+
+index, = numpy.where (data == data.max())[0]
+ax.text (8, 2, "Время заряда = 5.21c", fontsize=15)
+ax.text (8, 1.5, "Время разряда = " + str (round (data_time.max () - 5.21, 2)) + "c", fontsize=15)
+ax.plot(data_time[0:data.size:10], data[0:data.size:10], c='blue', marker = 's', markersize=3, linewidth=1, label = "V(t)")
+
+ax.legend (loc = "upper right", fontsize=20)
+fig.savefig('graph.png')
+fig.savefig('graph.svg')
